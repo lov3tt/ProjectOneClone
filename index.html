@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Dinner and a Movie</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Gugi|Pragati+Narrow|Roboto|Sofia|Great+Vibes|Playfair+Display+SC"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand navbar-daam mb-0 h1">Dinner & Movie</span>
+    </nav>
+
+    <header class="bg-white text-white py-5 background-image" id="landing">
+      <div class="overlay"></div>
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-lg-8">
+            <h1 class="display-4 mt-5 mb-2 animated fadeInDown">Plan your night out</h1>
+            <p class="lead mb-5 text-white">Welcome to Dinner and a Movie application. Please type in a zip code close
+              to where you will be wanting to see your movie. This application will take you throught the rest of the
+              process of planning your evening out. We hope you enjoy your experience!</p>
+          </div>
+          <div class="col-lg-4">
+            <form class="needs-validation" novalidate id="formStart">
+              <div class="form-group">
+                <label for="zipCodeInput">Zip Code</label>
+                <input class="form-control" type="number" id="zipCodeInput" placeholder="Zip Code" pattern=".{5,5}"
+                  required>
+              </div>
+              <div class="invalid-feedback" id="invalid-feedback-zip">
+                  Please type in the 5 digit zip code.
+              </div>
+
+              <div class="form-group">
+                <label for="dateInput">Date</label>
+                <input class="form-control" type="date" id="dateInput" placeholder="Date" required>
+              </div>
+              <div class="invalid-feedback">
+                Please choose a date from the calendar using the arrow.
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col form-group">
+                    <label for="startTimeInput">Start Time</label>
+                    <input class="form-control" type="time" id="startTimeInput" placeholder="Start Time" required>
+                    <div class="invalid-feedback">
+                      Please type in the time using the formation HH:MM AM/PM.
+                    </div>
+                  </div>
+                  <div class="col form-group">
+                    <div class="form-group">
+                      <label for="endTimeInput">End Time</label>
+                      <input class="form-control" type="time" id="endTimeInput" placeholder="End Time" required>
+                    </div>
+                    <div class="invalid-feedback">
+                      Please type in the time using the formation HH:MM AM/PM.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary btn-lg btn-block" id="homeNext" disabled>Get Started</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  </header>
+
+  <div class="container mt-4" id="results" style="display: none">
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+              aria-selected="true">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" id="movies-tab" data-toggle="tab" href="#movies" role="tab"
+              aria-controls="movies" aria-selected="false"><span class="badge badge-pill badge-warning text-dark">1</span>
+              Movies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" id="showtimes-tab" data-toggle="tab" href="#showtimes" role="tab"
+              aria-controls="showtimes" aria-selected="false"><span
+                class="badge badge-pill badge-warning text-dark">2</span> Showtimes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" id="restaurants-tab" data-toggle="tab" href="#restaurants" role="tab"
+              aria-controls="restaurants" aria-selected="false"><span
+                class="badge badge-pill badge-warning text-dark">3</span> Restaurants</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" id="summary-tab" data-toggle="tab" href="#summary" role="tab"
+              aria-controls="summary" aria-selected="false"><span
+                class="badge badge-pill badge-warning text-dark">4</span> Summary</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+          </div>
+          <div class="tab-pane fade pt-4" id="movies" role="tabpanel" aria-labelledby="theaters-tab">
+            <h1 class="animated slideInLeft text-right">Movies showing in <span class="font-italic font-weight-bold"
+                id="movieZipcode"></span>
+            </h1>
+            <div class="text-center" id="moviesLoading">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+            <div class="row" id="movieResults" style="margin-bottom:54px;"></div>
+            <div class="fixed-bottom">
+              <div class="container">
+                <div class="navbar navbar-dark bg-dark justify-content-between">
+                    <div class="text-light">Prestige Worldwide &copy; 2019</div>
+                  <div class="navbar-brand">
+                  </div>
+                  <div class="form-inline">
+                    <!--<button type="button" class="btn btn-prev btn-secondary">Prev</button>-->
+                    <button type="button" class="btn btn-next btn-primary ml-2" id="movieNext" disabled>Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade pt-4" id="showtimes" role="tabpanel" aria-labelledby="showtimes-tab">
+            <h1 class="animated slideInLeft text-right">Showtimes for <span class="font-italic font-weight-bold"
+                id="movieTitle"></span> in <span class="font-italic font-weight-bold" id="theaterZipcode"></span>
+            </h1>
+            <div class="text-center" id="showtimesLoading">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+            <div id="showtimeResults" style="margin-bottom:54px;"></div>
+            <div class="fixed-bottom">
+              <div class="container">
+                <div class="navbar navbar-light bg-dark justify-content-between">
+                    <div class="text-light">Prestige Worldwide &copy; 2019</div>
+                  <div class="navbar-brand">
+                  </div>
+                  <div class="form-inline">
+                    <button type="button" class="btn btn-prev btn-secondary">Prev</button>
+                    <button type="button" class="btn btn-next btn-primary ml-2" id="showtimeNext" disabled>Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade pt-4" id="restaurants" role="tabpanel" aria-labelledby="restaurants-tab">
+            <h1 class="animated slideInLeft text-right">Restaurants near <span class="font-italic font-weight-bold"
+                id="theaterName"></span></h1>
+            <div id="restaurantResults"></div>
+            <div class="text-center" id="restaurantsLoading">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+            <div class="text-center mt-4 pb-4" style="margin-bottom:54px; display:none;" id="restaurantsLoader">
+              <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="restaurantsBtn">Load more
+                restaurants</button>
+            </div>
+            <div class="fixed-bottom">
+              <div class="container">
+                <div class="navbar navbar-light bg-dark justify-content-between">
+                    <div class="text-light">Prestige Worldwide &copy; 2019</div>
+                  <div class="navbar-brand">
+                  </div>
+                  <div class="form-inline">
+                    <button type="button" class="btn btn-prev btn-secondary">Prev</button>
+                    <button type="button" class="btn btn-next btn-primary ml-2" id="restaurantNext"
+                      disabled>Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+            <h1 class="text-right animated tada">Presented by Prestige Worldwide</h1>
+            <div class="summaryResult">
+
+                <div class="row card-deck">
+
+                  <div class="card shadow">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img class="card-img" src="assets/images/default-movie.png" alt="Movie Poster"
+                          id="summaryPoster">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title" id="summaryMovie"></h5>
+                          <p class="card-text" id="summaryShowtime"></p>
+                          <p class="card-text" id="summaryTheater"></p>
+                          <p class="card-text" id="summaryTheaterAddress"></p>
+                          <div class="row">
+                            <div class="col" id="fandangoBtnWrapper">
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <h5 class="card-title" id="summaryRestaurant"></h5>
+                      <div class="row card-text">
+                        <div class="col">
+                          <p id="summaryRating"></p>
+                          <p> <span id="summaryPrice"></span> | <span id="summaryInfo"></span></p>
+                          <p id="summaryPhone"></p>
+                          <p id="summaryRestaurantAddress"></p>
+                        </div>
+                        <!-- 
+                      <div class="col text-right">
+                        <p id="summaryPhone"></p>
+                      </div>
+                    -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <h5 class="card-title">UBER</h5>
+                      <table class="table card-text text-white">
+                        <tbody id="summaryUber">
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row mt-4" style="margin-bottom:54px;">
+                  <div class="col-12" id="map">
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="fixed-bottom">
+                <div class="container">
+                  <div class="navbar navbar-dark bg-dark justify-content-between">
+                    <div class="text-light">Prestige Worldwide &copy; 2019</div>
+                    <div class="form-inline">
+                      <button type="button" class="btn btn-prev btn-secondary">Prev</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+  <!-- Link to Moment.js -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+  <!-- Link to Underscore.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/validation.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      var storage = new Storage()
+      var app = new Application(storage)
+      app.renderCurrentLocation()
+      app.renderCurrentDate()
+      app.renderCurrentTime()
+      app.setMinDate()
+
+    })
+  </script>
+
+  <script src="assets/js/maps.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWFMiZeZwNNAdJUZsfMZ7edVnxgLOSfDs&callback=initMap"
+    async defer></script>
+
+</body>
+
+</html>

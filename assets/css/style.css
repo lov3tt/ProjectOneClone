@@ -1,0 +1,139 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url("../images/movie-background.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.card.selected {
+    border-width: 3px;
+    border-color: #007bff
+}
+
+/*
+.bg-dark {
+    color: white;
+    background-color: #cccccc;
+    background-image: grey;
+}
+*/
+
+.theater-card,
+.movie-card,
+.restaurant-card,
+.theaterMovieCard,
+.bg-secondary,
+.shadow,
+td {
+    color: white;
+    background-color: #cccccc;
+    background-image: url("../images/prism.png");
+    background-repeat: repeat;
+    /* opacity: .9; */
+}
+
+#landing {
+    position: relative;
+}
+
+
+.background-image {
+    position: absolute;
+    background-image: url("../images/datenight3.jpg");
+    background-size: 100%;
+    /*opacity: 0.75;*/
+
+    /* Sizing */
+    width: 100%;
+    /*height: 80vh;*/
+    height: calc(100vh - 74px);
+
+    /* Flexbox stuff */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display SC', serif;
+    font-size: 32px;
+    text-align: center;
+    color: white;
+}
+
+.movieImg {
+    background-image: url("../images/theater.jpg")
+}
+
+/* .btn-secondary {
+
+} */
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: aqua !important;
+    color: black !important;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Playfair Display SC', serif;
+}
+
+.btn-secondary {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Playfair Display SC', serif;
+}
+
+.nav-item {
+    color: black;
+}
+
+a > .nav-link > .active {
+    background: teal !important;
+}
+
+.nav-item {
+    background-image: url("../images/prism.png") !important;
+}
+
+h1 {
+    color: white;
+}
+
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin: 10px auto;
+}
+
+.text-description {
+    color: #ccc
+}
+
+.btn-fandango {
+    background: #fe7900
+}
+
+.navbar-daam {
+    font-family: 'Playfair Display SC', serif;
+    /*font-size: 32px;*/
+}
